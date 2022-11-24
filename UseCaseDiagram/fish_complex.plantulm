@@ -1,0 +1,34 @@
+@startuml
+title Рыбокомплекc
+
+left to right direction
+actor "Пользователь" as user
+usecase "Загрузить файл" as upload
+usecase "Скачать файл" as download
+usecase "Запустить аквариум" as run
+usecase "Посмотреть информацию об этапе" as see
+usecase "Изменить данные" as toChangeTheData
+
+user -- upload 
+user -- download
+user - run
+run <.. see: <<extend>>
+
+actor "Аквариум" as aquarium 
+usecase "Включить дозатор" as turnOnTheDispenser
+usecase "Включить обогреватель" as turnOnTheHeater
+usecase "Включить освещение" as turnOnLighting
+usecase "Подать кислород" as applyOxygen
+usecase "имитировать естественный процесс" as carryOutNaturalProcess
+usecase "загрузить данные в файл" as downloadData
+
+aquarium -- toChangeTheData
+toChangeTheData <.. turnOnTheDispenser: <<extend>>
+toChangeTheData <.. turnOnTheHeater: <<extend>>
+toChangeTheData <.. turnOnLighting: <<extend>>
+toChangeTheData <.. applyOxygen: <<extend>>
+toChangeTheData .> carryOutNaturalProcess: <<include>>
+toChangeTheData .left.> downloadData: <<include>>
+
+
+@enduml
